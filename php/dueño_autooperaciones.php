@@ -10,23 +10,22 @@ if(isset($_GET['accion'])) {
 
     //Leer datos de la tabla de usuarios
     if($accion== 'leer'){
-        $sql = "select * from alumnos where 1";
+        $sql = "select * from dueño_auto where 1";
         $result = $db->query($sql);
 
         if($result ->num_rows>0){
             while($fila = $result->fetch_assoc()){
                 $item['id']= $fila['id'];
-                $item['apellido_paterno']= $fila['apellido_paterno'];
-                $item['apellido_materno']= $fila['apellido_materno'];
-                $item['nombre']= $fila['nombre'];
-                $arrAlumnos[] = $item;
+                $item['id_auto']= $fila['id_auto'];
+                $item['id_cliente']= $fila['id_cliente'];
+                $arrdueno[] = $item;
             }
             $response["status"] = "ok";
-            $response["mensaje"] = $arrAlumnos;
+            $response["mensaje"] = $arrdueno;
         }
         else{
             $response["status"] = "Error";
-            $response["mensaje"] = "No hay alumnos registrados";
+            $response["mensaje"] = "No hay dueno registrado";
         }
 
         header('content-type: application/json');
@@ -44,11 +43,10 @@ if(isset($data)){
     //Verifico el tipo de accion
     if($accion =='insertar'){
         //Obtener los demas datos del body
-        $apellido_paterno = $data["apellido_paterno"];
-        $apellido_materno = $data["apellido_paterno"];
-        $nombre = $data["nombre"];
+        $id_auto  = $data["id_auto"];
+        $id_cliente = $data["id_cliente"];
 
-        $qry = "INSERT INTO alumnos (apellido_paterno, apellido_materno, nombre) values ('$apellido_paterno','$apellido_materno','$nombre')";
+        $qry = "INSERT INTO dueño_auto (id_auto, id_cliente) values ('$id_auto','$id_cliente')";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
@@ -65,11 +63,10 @@ if(isset($data)){
 
     if($accion == 'modificar'){
         $id = $data["id"];
-        $apellido_paterno = $data["apellido_paterno"];
-        $apellido_materno = $data["apellido_paterno"];
-        $nombre = $data["nombre"];
+        $id_auto  = $data["id_auto"];
+        $id_cliente = $data["id_cliente"];
 
-        $qry = "UPDATE alumnos set apellido_paterno = '$apellido_paterno', apellido_materno = '$apellido_materno', nombre = '$nombre' where id = '$id'";
+        $qry = "UPDATE dueño_auto set id_auto = '$id_auto', id_cliente = '$id_cliente' where id = '$id'";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
@@ -87,7 +84,7 @@ if(isset($data)){
     if($accion == 'borrar'){
         $id = $data["id"];
 
-        $qry = "delete from alumnos where id = '$id'";
+        $qry = "delete from dueño_auto where id = '$id'";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
