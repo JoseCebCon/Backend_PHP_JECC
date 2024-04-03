@@ -10,7 +10,7 @@ if(isset($_GET['accion'])) {
 
     //Leer datos de la tabla de usuarios
     if($accion== 'leer'){
-        $sql = "select * from dueño_auto where 1";
+        $sql = "select * from dueno_auto where 1";
         $result = $db->query($sql);
 
         if($result ->num_rows>0){
@@ -46,7 +46,7 @@ if(isset($data)){
         $id_auto  = $data["id_auto"];
         $id_cliente = $data["id_cliente"];
 
-        $qry = "INSERT INTO dueño_auto (id_auto, id_cliente) values ('$id_auto','$id_cliente')";
+        $qry = "INSERT INTO dueno_auto (id_auto, id_cliente) values ('$id_auto','$id_cliente')";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
@@ -66,7 +66,7 @@ if(isset($data)){
         $id_auto  = $data["id_auto"];
         $id_cliente = $data["id_cliente"];
 
-        $qry = "UPDATE dueño_auto set id_auto = '$id_auto', id_cliente = '$id_cliente' where id = '$id'";
+        $qry = "UPDATE dueno_auto set id_auto = '$id_auto', id_cliente = '$id_cliente' where id = '$id'";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
@@ -84,7 +84,7 @@ if(isset($data)){
     if($accion == 'borrar'){
         $id = $data["id"];
 
-        $qry = "delete from dueño_auto where id = '$id'";
+        $qry = "delete from dueno_auto where id = '$id'";
         
         if($db->query($qry)){
             $response["status"] = 'OK';
